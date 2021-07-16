@@ -163,18 +163,18 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 40.0,),
                   Container(
                     height: 50.0,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed('/HomePage');
+                        // Navigator.push(context, MaterialPageRoute(
+                        //     builder: ((context) => HomePage()),
+                        // ));
+                    },
                     child: Material(
                       borderRadius: BorderRadius.circular(20.0),
                       shadowColor: Colors.yellowAccent,
                       color: Colors.yellow,
                       elevation: 7.0,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pushNamed('/HomePage');
-                          // Navigator.push(context, MaterialPageRoute(
-                          //     builder: ((context) => HomePage()),
-                          // ));
-                        },
                         child: Center(
                           child: Text(
                             "LOGIN",

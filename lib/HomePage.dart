@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage>{
               Container(
                 height: 200.0,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(75.0)),
+                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(55.0)),
                   color: Colors.yellow,
                 ),
               ),
@@ -62,7 +62,8 @@ class _HomePageState extends State<HomePage>{
                   ),
                 ),
             ],
-          )
+          ),
+
         ],
       ),
     );
