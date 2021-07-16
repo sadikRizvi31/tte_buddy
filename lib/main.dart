@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import 'HomePage.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -13,6 +15,10 @@ class MyApp extends StatelessWidget{
   Widget build(BuildContext context)
   {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      routes: <String,WidgetBuilder>{
+        '/HomePage': (BuildContext context) => new HomePage()
+      },
       home: SplashScreen(),
     );
   }
@@ -28,33 +34,39 @@ class _SplashScreenState extends State<SplashScreen>{
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 3),(){
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => HomePage() ));
+    Timer(Duration(seconds: 10),(){
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => LoginPage() ));
     });
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-                child: Lottie.asset('Intro.json'),
-            ),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Lottie.asset('assets/lottie/Intro.json',
+                  height: 500.0,
+                  width: 400.0,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
 
 }
-class HomePage extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   TextField(
                     decoration: InputDecoration(
-                      labelText: "Email",
+                      labelText: "EMAIL",
                       labelStyle: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.grey,
@@ -157,7 +169,12 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.yellow,
                       elevation: 7.0,
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).pushNamed('/HomePage');
+                          // Navigator.push(context, MaterialPageRoute(
+                          //     builder: ((context) => HomePage()),
+                          // ));
+                        },
                         child: Center(
                           child: Text(
                             "LOGIN",
