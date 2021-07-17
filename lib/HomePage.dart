@@ -85,9 +85,125 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               ],
             ),
           ),
+          SizedBox(height: 10.0),
+          Padding(
+              padding: EdgeInsets.only(left: 15.0),
+            child: Text(
+              'CURRENT TASK',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15.0,
+              ),
+            ),
+          ),
+          _listItem("<Train Name>","train number","From <Station name>","To : <StationName>","Date","Time"),
         ],
       ),
     );
   }
 
+  _listItem(String trainName,String trainNumber,String fromS,String toS,String dateT,String timeT)
+  {
+    return Padding(
+        padding: EdgeInsets.only(left: 15.0,top: 15.0),
+      child: Stack(
+        children: <Widget>[
+          Container(
+            height: 170.0,
+            width: MediaQuery.of(context).size.width,
+          ),
+          Positioned(
+            left: 15.0,
+              top: 30.0,
+              child: Container(
+                height: 125.0,
+                width: MediaQuery.of(context).size.width - 15.0,
+                decoration: BoxDecoration(
+                  color: Color(0xFFF9EFEB),
+                  borderRadius: BorderRadius.circular(5.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      spreadRadius: 3.0,
+                      blurRadius: 3.0,
+                    )
+                  ]
+                ),
+                child: Text("Hello World"),
+              )
+          ),
+          Positioned(
+            left: 95.0,
+            top: 64.0,
+            child: Container(
+              height: 105.0,
+              width: MediaQuery.of(context).size.width - 15.0,
+              decoration: BoxDecoration(
+                  color: Color(0xFFF9EFEB),
+                  borderRadius: BorderRadius.circular(5.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      spreadRadius: 3.0,
+                      blurRadius: 3.0,
+                    )
+                  ]
+              ),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 10.0,left: 10.0),
+                  child: Row(
+                    children: [
+                      Icon(Icons.people),
+                      SizedBox(width: 5.0,),
+                      Text(
+                        "no. pass",
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      SizedBox(width: 25.0,),
+                      Icon(Icons.account_tree_outlined),
+                      SizedBox(width: 5.0,),
+                      Text(
+                        "no. Coach",
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      SizedBox(width: 15.0),
+                      Icon(Icons.weekend_outlined),
+                      SizedBox(width: 5.0,),
+                      Text(
+                        "vacnt seats",
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.grey,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 125.0,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.white,
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+
+              ),
+            ),
+        ],
+      ),
+    );
+  }
 }
