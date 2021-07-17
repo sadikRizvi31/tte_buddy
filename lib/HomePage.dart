@@ -1,15 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:tte_buddy/TrainOptions.dart';
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>{
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+
+  TabController tabController;
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(vsync: this,length: 3);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF9EFEB),
       body: ListView(
         children: [
           Stack(
@@ -63,7 +73,18 @@ class _HomePageState extends State<HomePage>{
                 ),
             ],
           ),
-
+          SizedBox(height: 10.0),
+          Container(
+            height: MediaQuery.of(context).size.height - 550.0,
+            child: TabBarView(
+              controller: tabController,
+              children: <Widget>[
+                new TrainOptions(),
+                new TrainOptions(),
+                new TrainOptions(),
+              ],
+            ),
+          ),
         ],
       ),
     );
