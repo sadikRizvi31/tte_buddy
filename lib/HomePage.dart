@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:tte_buddy/TrainOptions.dart';
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
-  TabController tabController;
+  TabController tabController,scrollTabController;
   @override
   void initState() {
     super.initState();
     tabController = TabController(vsync: this,length: 3);
+    scrollTabController = TabController(vsync: this,length: 4);
   }
 
   @override
@@ -97,6 +97,64 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             ),
           ),
           _listItem("<Train Name>","train number","From <Station name>","To : <StationName>","Date","Time"),
+          SizedBox(height: 10.0,),
+          Padding(
+            padding: EdgeInsets.only(left: 15.0),
+            child: Text(
+              'OPTIONS',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15.0,
+              ),
+            ),
+          ),
+          TabBar(
+            controller: scrollTabController,
+            indicatorColor: Colors.yellow,
+            indicatorSize: TabBarIndicatorSize.label,
+            indicatorWeight: 4.0,
+            isScrollable: true,
+            labelColor: Colors.black,
+            unselectedLabelColor: Colors.black45,
+            tabs: <Widget>[
+              Tab(
+                child: Text(
+                  "Cancellation",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.0,
+                  ),
+                ),
+              ),
+              Tab(
+                child: Text(
+                  "Reschedule",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.0,
+                  ),
+                ),
+              ),
+              Tab(
+                child: Text(
+                  "Meal",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.0,
+                  ),
+                ),
+              ),
+              Tab(
+                child: Text(
+                  "Location",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.0,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -199,9 +257,71 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             ),
             child: Padding(
               padding: EdgeInsets.all(8.0),
-
+                  child: Row(
+                    children: <Widget>[
+                      SizedBox(height: 10.0,),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            trainName+" ("+trainNumber+")",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          SizedBox(height: 10.0,),
+                          Row(
+                            children: [
+                              Text(
+                                fromS+" - "+toS,
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              SizedBox(width: 10.0,),
+                              Text(
+                                dateT+" - "+timeT,
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 15.0,),
+                          Container(
+                            height: 30.0,
+                            width: 85.0,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                color: Color(0xFFF75A4C),
+                                style: BorderStyle.solid,
+                                width: 0.25,
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Intercity Train",
+                                style: TextStyle(
+                                    fontSize: 12.0,
+                                    color: Colors.blueGrey
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
               ),
             ),
+
         ],
       ),
     );
