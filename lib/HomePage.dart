@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tte_buddy/TrainOptions.dart';
+
+import 'SideBar.dart';
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -9,6 +11,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   TabController tabController,scrollTabController;
+  GlobalKey<ScaffoldState> _scafoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
@@ -19,7 +22,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SideBar(),
       backgroundColor: Color(0xFFF9EFEB),
+      key: _scafoldKey,
       body: ListView(
         children: [
           Stack(
@@ -37,6 +42,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     borderRadius: BorderRadius.only(bottomRight: Radius.circular(25.0)),
                     color: Colors.yellow[400],
                   ),
+              ),
+              IconButton(icon: Icon(Icons.menu,color: Colors.black),
+                  onPressed: () => _scafoldKey.currentState.openDrawer(),
               ),
               Padding(
                   padding: EdgeInsets.only(top: 60.0,left: 20.0),

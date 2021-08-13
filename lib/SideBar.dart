@@ -1,61 +1,105 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:tte_buddy/ProfilePage.dart';
+
+import 'main.dart';
 class SideBar extends StatefulWidget {
   @override
     _SideBarState createState() => _SideBarState();
 }
-class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  final bool isSidebarOpened = false;
-  StreamController<bool> isSideBarOpenedStreamController;
-  StreamSink<bool> isSideBarOpenedSink;
-  final _animationDuration = const Duration(milliseconds: 500);
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(vsync: this,duration: _animationDuration);
-  }
 
+class _SideBarState extends State<SideBar> {
+  final padding = EdgeInsets.symmetric(horizontal: 20);
   @override
-  void dispose()
-  {
-    _animationController.dispose();
-    super.dispose();
-  }
+  Widget build(BuildContext context){
+    return Drawer(
+      child: Material(
+        color: Colors.yellow,
+        child: ListView(
+          padding: padding,
+          children: <Widget>[
+            const SizedBox(height: 20),
+            buildMenuItem(
+              text: 'Profile',
+              icon: Icons.account_circle_outlined,
+              onClicked: () => selectedItem(context, 0),
+            ),
+            const SizedBox(height: 20),
+            buildMenuItem(
+              text: 'Schedule',
+              icon: Icons.calendar_today_outlined,
+              onClicked: () => selectedItem(context, 1),
+            ),
+            const SizedBox(height: 20),
+            buildMenuItem(
+              text: 'Urgent assist',
+              icon: Icons.assignment_late_outlined,
+              onClicked: () => selectedItem(context, 2),
+            ),
+            const SizedBox(height: 20),
+            buildMenuItem(
+              text: 'Complain',
+              icon: Icons.quick_contacts_mail_outlined,
+              onClicked: () => selectedItem(context, 3),
+            ),
+            const SizedBox(height: 20),
+            buildMenuItem(
+              text: 'Help Buddy',
+              icon: Icons.live_help_outlined,
+              onClicked: () => selectedItem(context, 4),
+            ),
+            const SizedBox(height: 24,),
+            Divider(color: Colors.white70,),
+            const SizedBox(height: 24,),
 
-  @override
-  Widget build(BuildContext context) {
-    final screemWidth = MediaQuery.of(context).size.width;
-    return AnimatedPositioned(
-      duration: _animationDuration,
-      top: 0,
-      bottom: 0,
-      left: isSidebarOpened ? 0 : 0,
-      right: isSidebarOpened ? 0 : screemWidth - 45,
-      child:Row(
-        children: [
-          Expanded(
-            child: Container(
-              color: Colors.blue,
+            const SizedBox(height: 24,),
+            buildMenuItem(
+              text: 'Settings',
+              icon: Icons.settings,
+              onClicked: () => selectedItem(context, 5),
             ),
-          ),
-          Align(
-            alignment: Alignment(0,-0.9),
-            child:Container(
-              width: 35,
-              height: 110.0,
-              color: Colors.amber,
-              child: AnimatedIcon(
-                progress: _animationController.view,
-                //icon: ,
-              ),
+            const SizedBox(height: 24,),
+            buildMenuItem(
+              text: 'Logout',
+              icon: Icons.logout,
+              onClicked: () => selectedItem(context, 6),
             ),
-          ),
-        ],
-      ) ,
+          ],
+        ),
+      ),
     );
+  }
+  Widget buildMenuItem({
+    String text,
+    IconData icon,
+    VoidCallback onClicked,
+  }){
+    final color = Colors.white;
+    final hoverColor = Colors.white70;
 
+    return ListTile(
+      leading: Icon(icon,color: color),
+      title: Text(text, style: TextStyle(color: color)),
+      hoverColor: hoverColor,
+      onTap: onClicked,
+    );
   }
 
+  void selectedItem(BuildContext context, int index) {
+    switch(index){
+        case 0:
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ProfilePage(),
+        ));
+        break;
+
+      case 6:
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => LoginPage(),
+        ));
+        break;
+
+    }
+  }
 }
