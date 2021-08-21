@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tte_buddy/TrainOptions.dart';
 
-import 'SideBar.dart';
+import '../sidebar/SideBar.dart';
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();

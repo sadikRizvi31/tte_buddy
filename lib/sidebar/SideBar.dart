@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tte_buddy/LoginPage.dart';
-import 'package:tte_buddy/ProfilePage.dart';
+import 'package:tte_buddy/views/LoginPage.dart';
+import 'package:tte_buddy/views/ProfilePage.dart';
 
 class SideBar extends StatefulWidget {
   @override

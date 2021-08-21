@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tte_buddy/HomePage.dart';
+import 'package:tte_buddy/views/HomePage.dart';
 import 'SideBar.dart';
 
 class sidebar_layout extends StatelessWidget {

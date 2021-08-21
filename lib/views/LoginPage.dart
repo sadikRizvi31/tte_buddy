@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_responsive_screen/flutter_responsive_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:tte_buddy/views/HomePage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -6,8 +10,18 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  Function hp;
+  Function wp;
+
+  TextEditingController _emailController = new TextEditingController();
+  TextEditingController _passwordController = new TextEditingController();
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
+    hp = Screen(MediaQuery.of(context).size).hp;
+    wp = Screen(MediaQuery.of(context).size).wp;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
@@ -67,6 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
+                  controller: _emailController,
                 ),
                 SizedBox(
                   height: 20.0,
@@ -84,6 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
+                  controller: _passwordController,
                 ),
                 SizedBox(height: 10.0,),
                 Container(
@@ -99,12 +115,18 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 40.0,),
+                SizedBox(height: 40.0),
                 Container(
                   height: 50.0,
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed('/HomePage');
+                      if(_emailController.text.isEmpty)
+                        Fluttertoast.showToast(msg: 'Please Enter Email');
+                      else if(_passwordController.text.isEmpty)
+                        Fluttertoast.showToast(msg: 'Please Enter Password');
+                      else
+                        _signInWithEmailAndPassword();
+                      // Navigator.of(context).pushNamed('/HomePage');
                       // Navigator.push(context, MaterialPageRoute(
                       //     builder: ((context) => HomePage()),
                       // ));
@@ -182,5 +204,25 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
+  }
+  _signInWithEmailAndPassword() async{
+    try{
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+          email: _emailController.text,
+          password: _passwordController.text
+      );
+      if(userCredential.user!=null){
+        Fluttertoast.showToast(msg: "Login Successful...");
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+      }
+      // _auth.signOut();
+    }
+    on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        Fluttertoast.showToast(msg: 'No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        Fluttertoast.showToast(msg: 'Wrong password provided for that user.');
+      }
+    }
   }
 }

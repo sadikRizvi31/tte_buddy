@@ -29,11 +29,14 @@ dependencies:
   lottie: ^1.0.1
   flutter_hooks: ^0.18.0
   flutter_spinkit: ^4.1.2+1
+  fluttertoast: ^7.1.6
+  flutter_responsive_screen: ^1.0.0
 
   #firebase dependencies
   firebase_auth: ^0.18.0
   cloud_firestore: ^0.14.2
   firebase_core: ^0.5.0
+
 
 dev_dependencies:
   flutter_test:

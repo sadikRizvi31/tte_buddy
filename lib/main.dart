@@ -5,12 +5,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tte_buddy/LoginPage.dart';
-import 'package:tte_buddy/SplashScreen.dart';
+import 'package:tte_buddy/views/LoginPage.dart';
+import 'package:tte_buddy/views/SplashScreen.dart';
 import 'package:tte_buddy/utils/AppColor.dart';
 import 'package:tte_buddy/utils/Constants.dart';
 
-import 'HomePage.dart';
+import 'views/HomePage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
