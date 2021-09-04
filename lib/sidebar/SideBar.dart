@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tte_buddy/utils/AppColor.dart';
 import 'package:tte_buddy/views/LoginPage.dart';
 import 'package:tte_buddy/views/ProfilePage.dart';
 
@@ -13,7 +14,7 @@ class _SideBarState extends State<SideBar> {
   Widget build(BuildContext context){
     return Drawer(
       child: Material(
-        color: Colors.yellow,
+        color: AppColor.primarySwatchColor,
         child: ListView(
           padding: padding,
           children: <Widget>[

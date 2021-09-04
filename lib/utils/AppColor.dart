@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
-  static MaterialColor primarySwatchColor = Colors.black;
+  static MaterialColor primarySwatchColor = Colors.blueGrey;
   static MaterialColor errorColor = Colors.red;
   static MaterialColor disableColor = Colors.grey;
 

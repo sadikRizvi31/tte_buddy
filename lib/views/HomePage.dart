@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tte_buddy/TrainOptions.dart';
+import 'package:tte_buddy/utils/AppColor.dart';
 
 import '../sidebar/SideBar.dart';
 class HomePage extends StatefulWidget {
@@ -33,14 +34,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 height: 200.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(bottomRight: Radius.circular(55.0)),
-                  color: Colors.yellow,
+                  color: AppColor.primarySwatchColor,
                 ),
               ),
               Container(
                 height: 145.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(bottomRight: Radius.circular(25.0)),
-                    color: Colors.yellow[400],
+                    color: AppColor.primarySwatchColor[400],
                   ),
               ),
               IconButton(icon: Icon(Icons.menu,color: Colors.black),
@@ -118,7 +119,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
           TabBar(
             controller: scrollTabController,
-            indicatorColor: Colors.yellow,
+            indicatorColor: AppColor.primarySwatchColor,
             indicatorSize: TabBarIndicatorSize.label,
             indicatorWeight: 4.0,
             isScrollable: true,
