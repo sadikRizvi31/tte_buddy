@@ -1,7 +1,12 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tte_buddy/TrainOptions.dart';
+import 'package:tte_buddy/models/TrainModel.dart';
 import 'package:tte_buddy/utils/AppColor.dart';
+import 'package:tte_buddy/utils/LoadingScreen.dart';
 
 import '../sidebar/SideBar.dart';
 class HomePage extends StatefulWidget {
@@ -10,9 +15,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-
+  bool isLoading=true;
   TabController tabController,scrollTabController;
-  GlobalKey<ScaffoldState> _scafoldKey = GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  List<TrainModel> trainList = new List<TrainModel>();
   @override
   void initState() {
     super.initState();
@@ -22,154 +28,199 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: SideBar(),
-      backgroundColor: Color(0xFFF9EFEB),
-      key: _scafoldKey,
-      body: ListView(
-        children: [
-          Stack(
-            children: <Widget>[
-              Container(
-                height: 200.0,
+    if (isLoading != null && isLoading) {
+      callApi();
+    } else if (!isLoading) {
+      return Scaffold(
+        drawer: SideBar(),
+        backgroundColor: Color(0xFFF9EFEB),
+        key: _scaffoldKey,
+        body: layout(),
+      );
+    }
+    return LoadingScreen();
+  }
+  Future callApi() async {
+    try {
+      await _fetchTrains();
+    }
+    catch (e){}
+    isLoading = false;
+    if (this.mounted) {
+      setState(() {});
+    }
+  }
+  _fetchTrains(){
+    FirebaseFirestore.instance.collection('Train')/*.where('tte_id',isEqualTo: _tteId)*/.get().then((QuerySnapshot querySnapshot) {
+      if(querySnapshot.docs.isNotEmpty) {
+        querySnapshot.docs.forEach((doc) {
+          setState(() {
+            TrainModel model = new TrainModel(train_no: doc["train_no"], name: doc["name"], end_stop: doc["end_stop"], start_stop: doc["start_stop"], end_time: doc["end_time"], start_time: doc["start_time"]);
+            trainList.add(model);
+          });
+        });
+      }
+    });
+  }
+  layout(){
+    return ListView(
+      children: [
+        Stack(
+          children: <Widget>[
+            Container(
+              height: 200.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(bottomRight: Radius.circular(55.0)),
+                color: AppColor.primarySwatchColor,
+              ),
+            ),
+            Container(
+              height: 145.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(bottomRight: Radius.circular(25.0)),
+                color: AppColor.primarySwatchColor[400],
+              ),
+            ),
+            IconButton(icon: Icon(Icons.menu,color: Colors.black),
+              onPressed: () => _scaffoldKey.currentState.openDrawer(),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 60.0,left: 20.0),
+              child: Text(
+                "Welcome <Username>,",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30.0,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 120,left: 15,right: 15),
+              child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(55.0)),
-                  color: AppColor.primarySwatchColor,
-                ),
-              ),
-              Container(
-                height: 145.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(25.0)),
-                    color: AppColor.primarySwatchColor[400],
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(25.0),
+                    bottomLeft: Radius.circular(5.0),
+                    topLeft: Radius.circular(5.0),
                   ),
-              ),
-              IconButton(icon: Icon(Icons.menu,color: Colors.black),
-                  onPressed: () => _scafoldKey.currentState.openDrawer(),
-              ),
-              Padding(
-                  padding: EdgeInsets.only(top: 60.0,left: 20.0),
-                child: Text(
-                  "Welcome <Username>,",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30.0,
-                    color: Colors.white,
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.only(top: 14.0),
+                    hintText: 'Enter Query',
+                    hintStyle: TextStyle(fontSize: 15.0),
+                    prefixIcon: Icon(Icons.search),
                   ),
                 ),
               ),
-              Padding(
-                  padding: EdgeInsets.only(top: 120,left: 15,right: 15),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(25.0),
-                      bottomLeft: Radius.circular(5.0),
-                      topLeft: Radius.circular(5.0),
-                    ),
-                    ),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      contentPadding: EdgeInsets.only(top: 14.0),
-                      hintText: 'Enter Query',
-                      hintStyle: TextStyle(fontSize: 15.0),
-                      prefixIcon: Icon(Icons.search),
-                    ),
-                  ),
-                  ),
-                ),
+            ),
+          ],
+        ),
+        SizedBox(height: 10.0),
+        Container(
+          height: MediaQuery.of(context).size.height - 550.0,
+          child: TabBarView(
+            controller: tabController,
+            children: <Widget>[
+              new TrainOptions(),
+              new TrainOptions(),
+              new TrainOptions(),
             ],
           ),
-          SizedBox(height: 10.0),
-          Container(
-            height: MediaQuery.of(context).size.height - 550.0,
-            child: TabBarView(
-              controller: tabController,
-              children: <Widget>[
-                new TrainOptions(),
-                new TrainOptions(),
-                new TrainOptions(),
-              ],
+        ),
+        SizedBox(height: 10.0),
+        Padding(
+          padding: EdgeInsets.only(left: 15.0),
+          child: Text(
+            'CURRENT TASK',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 15.0,
             ),
           ),
-          SizedBox(height: 10.0),
-          Padding(
-              padding: EdgeInsets.only(left: 15.0),
-            child: Text(
-              'CURRENT TASK',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15.0,
-              ),
+        ),
+        buildAllocatedTrainList(),
+        // _listItem("<Train Name>","train number","From <Station name>","To : <StationName>","Date","Time"),
+        SizedBox(height: 10.0,),
+        Padding(
+          padding: EdgeInsets.only(left: 15.0),
+          child: Text(
+            'OPTIONS',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 15.0,
             ),
           ),
-          _listItem("<Train Name>","train number","From <Station name>","To : <StationName>","Date","Time"),
-          SizedBox(height: 10.0,),
-          Padding(
-            padding: EdgeInsets.only(left: 15.0),
-            child: Text(
-              'OPTIONS',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15.0,
+        ),
+        TabBar(
+          controller: scrollTabController,
+          indicatorColor: AppColor.primarySwatchColor,
+          indicatorSize: TabBarIndicatorSize.label,
+          indicatorWeight: 4.0,
+          isScrollable: true,
+          labelColor: Colors.black,
+          unselectedLabelColor: Colors.black45,
+          tabs: <Widget>[
+            Tab(
+              child: Text(
+                "Cancellation",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.0,
+                ),
               ),
             ),
-          ),
-          TabBar(
-            controller: scrollTabController,
-            indicatorColor: AppColor.primarySwatchColor,
-            indicatorSize: TabBarIndicatorSize.label,
-            indicatorWeight: 4.0,
-            isScrollable: true,
-            labelColor: Colors.black,
-            unselectedLabelColor: Colors.black45,
-            tabs: <Widget>[
-              Tab(
-                child: Text(
-                  "Cancellation",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15.0,
-                  ),
+            Tab(
+              child: Text(
+                "Reschedule",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.0,
                 ),
               ),
-              Tab(
-                child: Text(
-                  "Reschedule",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15.0,
-                  ),
+            ),
+            Tab(
+              child: Text(
+                "Meal",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.0,
                 ),
               ),
-              Tab(
-                child: Text(
-                  "Meal",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15.0,
-                  ),
+            ),
+            Tab(
+              child: Text(
+                "Location",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.0,
                 ),
               ),
-              Tab(
-                child: Text(
-                  "Location",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15.0,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+      ],
     );
   }
-
-  _listItem(String trainName,String trainNumber,String fromS,String toS,String dateT,String timeT)
+  buildAllocatedTrainList(){
+    return trainList.length != null && trainList.length != 0 ?
+    new Container(
+      height: 190,
+      child: ListView.builder(
+          shrinkWrap: false,
+          scrollDirection: Axis.horizontal,
+          itemCount: trainList.length,
+          // padding: EdgeInsets.only(left: 15.0),
+          itemBuilder: (BuildContext context, int index) {
+            return _listItem(trainList[index]);
+          }),
+    )
+    : Container();
+  }
+  _listItem(TrainModel model)
   {
     return Padding(
         padding: EdgeInsets.only(left: 15.0,top: 15.0),
@@ -273,33 +324,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            trainName+" ("+trainNumber+")",
+                            model.name+" ("+model.train_no+")",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16.0,
                             ),
                           ),
                           SizedBox(height: 10.0,),
-                          Row(
-                            children: [
-                              Text(
-                                fromS+" - "+toS,
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              SizedBox(width: 10.0,),
-                              Text(
-                                dateT+" - "+timeT,
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
+                          Text(
+                            model.start_stop+" - "+model.end_stop,
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          SizedBox(width: 10.0,),
+                          Text(
+                            model.start_time+" - "+model.end_time,
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                            ),
                           ),
                           SizedBox(height: 15.0,),
                           Container(
