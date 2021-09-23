@@ -4,6 +4,7 @@ import 'package:tte_buddy/TrainOptions.dart';
 import 'package:tte_buddy/utils/AppColor.dart';
 
 import '../sidebar/SideBar.dart';
+import 'Coaches.dart';
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -302,27 +303,45 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             ],
                           ),
                           SizedBox(height: 15.0,),
-                          Container(
-                            height: 30.0,
-                            width: 85.0,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                color: Color(0xFFF75A4C),
-                                style: BorderStyle.solid,
-                                width: 0.25,
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Intercity Train",
-                                style: TextStyle(
-                                    fontSize: 12.0,
-                                    color: Colors.blueGrey
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                height: 30.0,
+                                width: 85.0,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: Color(0xFFF75A4C),
+                                    style: BorderStyle.solid,
+                                    width: 0.25,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Intercity Train",
+                                    style: TextStyle(
+                                        fontSize: 12.0,
+                                        color: Colors.blueGrey
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                              SizedBox(width: 200.0,),
+                              ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all<Color>(AppColor.primarySwatchColor),
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(18.0),
+                                            side: BorderSide(color: AppColor.primarySwatchColor, width: 2.0)))),
+                                child: Text('Go ->'),
+                                onPressed: () {
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Coaches()));
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
