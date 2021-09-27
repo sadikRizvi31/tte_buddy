@@ -29,7 +29,6 @@ class _SeatLayout2State extends State<SeatLayout2> {
             _makeSeat(),
             _makeSeat(),
             _makeSeat(),
-            _makeSeat(),
           ],
         ),
       ),

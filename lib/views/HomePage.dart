@@ -385,7 +385,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                             side: BorderSide(color: AppColor.primarySwatchColor, width: 2.0)))),
                                 child: Text('Go ->'),
                                 onPressed: () {
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Coaches()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Coaches(trainModel: model,)));
                                 },
                               ),
                             ],
