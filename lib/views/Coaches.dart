@@ -65,8 +65,8 @@ class _CoachesState extends State<Coaches>{
         children: [
           Row(
             children: [
-              IconButton(icon: Icon(Icons.menu,color: Colors.black),
-                onPressed: () => _scaffoldKey.currentState.openDrawer(),
+              IconButton(icon: Icon(Icons.arrow_back,color: Colors.black),
+                onPressed: () => Navigator.pop(context),
               ),
               SizedBox(width: 80,),
               Text(
@@ -145,7 +145,7 @@ class _CoachesState extends State<Coaches>{
                             side: BorderSide(color: AppColor.primarySwatchColor, width: 2.0)))),
                 child: Text('Go ->'),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SeatUI()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SeatUI(coachModel: coachModel,)));
                 },
               ),
             ],

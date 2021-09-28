@@ -62,9 +62,11 @@ class _ViewComplaintListState extends State<ViewComplaintList> {
       children: [
         Row(
           children: [
-            IconButton(icon: Icon(Icons.menu,color: Colors.black),
-              onPressed: () => _scaffoldKey.currentState.openDrawer(),
-            ),
+            Padding(
+                padding: EdgeInsets.only(left: 5.0),
+                child: IconButton(icon: Icon(Icons.arrow_back,color: Colors.black),
+                onPressed: () => Navigator.pop(context),
+            )),
             SizedBox(width: 80,),
             Text(
               'Complaints',

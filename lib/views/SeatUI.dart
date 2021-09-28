@@ -63,12 +63,12 @@ class _SeatUIState extends State<SeatUI> {
         children: [
           Row(
             children: [
-              IconButton(icon: Icon(Icons.menu,color: Colors.black),
-                onPressed: () => _scaffoldKey.currentState.openDrawer(),
+              IconButton(icon: Icon(Icons.arrow_back,color: Colors.black),
+                onPressed: () => Navigator.pop(context),
               ),
               SizedBox(width: 80,),
               Text(
-                'Coach S1',
+                widget.coachModel.coach_id,
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 18,
