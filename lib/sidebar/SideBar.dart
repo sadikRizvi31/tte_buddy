@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tte_buddy/utils/AppColor.dart';
 import 'package:tte_buddy/views/LoginPage.dart';
 import 'package:tte_buddy/views/ProfilePage.dart';
+import 'package:tte_buddy/views/complaints/viewComplaintList.dart';
 
 class SideBar extends StatefulWidget {
   @override
@@ -93,12 +94,16 @@ class _SideBarState extends State<SideBar> {
         ));
         break;
 
+      case 3:
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ViewComplaintList(),
+        ));
+        break;
       case 6:
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => LoginPage(),
         ));
         break;
-
     }
   }
 }
