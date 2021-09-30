@@ -100,7 +100,7 @@ class _SideBarState extends State<SideBar> {
         ));
         break;
       case 6:
-        Navigator.of(context).push(MaterialPageRoute(
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => LoginPage(),
         ));
         break;
