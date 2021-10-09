@@ -5,7 +5,6 @@ import 'package:tte_buddy/models/TrainModel.dart';
 import 'package:tte_buddy/sidebar/SideBar.dart';
 import 'package:tte_buddy/utils/AppColor.dart';
 import 'package:tte_buddy/utils/LoadingScreen.dart';
-import 'package:tte_buddy/views/TrainRouteUI.dart';
 
 import 'SeatUI.dart';
 
@@ -80,7 +79,7 @@ class _CoachesState extends State<Coaches>{
                 ),
               ),
               SizedBox(width: 30,),
-              ElevatedButton(
+             /* ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(AppColor.primarySwatchColor),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -91,7 +90,7 @@ class _CoachesState extends State<Coaches>{
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => TrainRouteUI()));
                 },
-              ),
+              ),*/
             ],
           ),
           Expanded(
@@ -104,7 +103,6 @@ class _CoachesState extends State<Coaches>{
                     return _buildCoachesCard(coachList[index]);
                   }),
           ),
-
         ],
       ),
     );

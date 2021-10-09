@@ -7,7 +7,7 @@ import 'package:tte_buddy/TrainOptions.dart';
 import 'package:tte_buddy/models/TrainModel.dart';
 import 'package:tte_buddy/utils/AppColor.dart';
 import 'package:tte_buddy/utils/LoadingScreen.dart';
-import 'package:tte_buddy/views/TrainRouteUI.dart';
+import 'package:tte_buddy/views/TrainRoute.dart';
 
 import '../sidebar/SideBar.dart';
 import 'Coaches.dart';
@@ -344,7 +344,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                             side: BorderSide(color: AppColor.primarySwatchColor, width: 2.0)))),
                                 child: Icon(Icons.add_location_alt_outlined),
                                 onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => TrainRouteUI()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => TrainRoute(trainModel: model)));
                                 },
                               ),
                             ],
