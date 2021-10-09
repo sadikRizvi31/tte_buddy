@@ -7,6 +7,7 @@ import 'package:tte_buddy/TrainOptions.dart';
 import 'package:tte_buddy/models/TrainModel.dart';
 import 'package:tte_buddy/utils/AppColor.dart';
 import 'package:tte_buddy/utils/LoadingScreen.dart';
+import 'package:tte_buddy/views/TrainRouteUI.dart';
 
 import '../sidebar/SideBar.dart';
 import 'Coaches.dart';
@@ -271,7 +272,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: 10.0,left: 10.0),
+                  padding: EdgeInsets.only(bottom: 5,left: 10.0),
                   child: Row(
                     children: [
                       Icon(Icons.people),
@@ -311,7 +312,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            height: 125.0,
+            height: 140.0,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               color: Colors.white,
@@ -320,18 +321,34 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               padding: EdgeInsets.all(8.0),
                   child: Row(
                     children: <Widget>[
-                      SizedBox(height: 10.0,),
+                      SizedBox(height: 0,),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            model.name+" ("+model.train_no+")",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16.0,
-                            ),
+                          Row(
+                            children: [
+                              Text(
+                                model.name+" ("+model.train_no+")",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                              SizedBox(width: 120,),
+                              ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all<Color>(AppColor.primarySwatchColor),
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(18.0),
+                                            side: BorderSide(color: AppColor.primarySwatchColor, width: 2.0)))),
+                                child: Icon(Icons.add_location_alt_outlined),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => TrainRouteUI()));
+                                },
+                              ),
+                            ],
                           ),
-                          SizedBox(height: 10.0,),
                           Text(
                             model.start_stop+" - "+model.end_stop,
                             style: TextStyle(
@@ -340,7 +357,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               color: Colors.grey,
                             ),
                           ),
-                          SizedBox(width: 10.0,),
+                          SizedBox(width: 5.0,),
                           Text(
                             model.start_time+" - "+model.end_time,
                             style: TextStyle(
@@ -349,7 +366,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               color: Colors.grey,
                             ),
                           ),
-                          SizedBox(height: 15.0,),
+                          SizedBox(height: 0),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[

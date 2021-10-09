@@ -49,6 +49,7 @@ class _SeatLayout2State extends State<SeatLayout2> {
             children: [
               GestureDetector(
                 onLongPress: () {
+                  contentBox(context);
                   showDialog(
                     context: context,
                     builder: (context) {
@@ -59,55 +60,6 @@ class _SeatLayout2State extends State<SeatLayout2> {
                         elevation: 0,
                         backgroundColor: Colors.transparent,
                         child: contentBox(context),
-                      );;
-                    },
-                  );
-                },
-                child: Container(
-                  height: 40,
-                  width: 40,
-                  margin: EdgeInsets.all(10),
-                  child: Center(
-                    child: Text(
-                      (++index).toString(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: AppColor.primarySwatchColor,
-                  ),
-                ),
-              ),
-              SizedBox(width: 15,),
-              GestureDetector(
-                onLongPress: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return Dialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-                        elevation: 16,
-                        child: Container(
-                          child: ListView(
-                            shrinkWrap: true,
-                            children: <Widget>[
-                              SizedBox(height: 20),
-                              Center(child: Text('PNR : <PNR DETAILS>')),
-                              SizedBox(height: 5),
-                              Center(child: Text('From : : <StationName>')),
-                              SizedBox(height: 5),
-                              Center(child: Text('To : <Station Name>')),
-                              SizedBox(height: 5),
-                              Center(child: Text('Age : <Umr>')),
-                              SizedBox(height: 5),
-                            ],
-                          ),
-                        ),
                       );
                     },
                   );
@@ -135,28 +87,55 @@ class _SeatLayout2State extends State<SeatLayout2> {
               SizedBox(width: 15,),
               GestureDetector(
                 onLongPress: () {
+                  contentBox(context);
                   showDialog(
                     context: context,
                     builder: (context) {
                       return Dialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-                        elevation: 16,
-                        child: Container(
-                          child: ListView(
-                            shrinkWrap: true,
-                            children: <Widget>[
-                              SizedBox(height: 20),
-                              Center(child: Text('PNR : <PNR DETAILS>')),
-                              SizedBox(height: 5),
-                              Center(child: Text('From : : <StationName>')),
-                              SizedBox(height: 5),
-                              Center(child: Text('To : <Station Name>')),
-                              SizedBox(height: 5),
-                              Center(child: Text('Age : <Umr>')),
-                              SizedBox(height: 5),
-                            ],
-                          ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
                         ),
+                        elevation: 0,
+                        backgroundColor: Colors.transparent,
+                        child: contentBox(context),
+                      );
+                    },
+                  );
+                },
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  margin: EdgeInsets.all(10),
+                  child: Center(
+                    child: Text(
+                      (++index).toString(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: AppColor.primarySwatchColor,
+                  ),
+                ),
+              ),
+              SizedBox(width: 15,),
+              GestureDetector(
+                onLongPress: () {
+                  contentBox(context);
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Dialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        elevation: 0,
+                        backgroundColor: Colors.transparent,
+                        child: contentBox(context),
                       );
                     },
                   );
@@ -184,28 +163,17 @@ class _SeatLayout2State extends State<SeatLayout2> {
               SizedBox(width: 110,),
               GestureDetector(
                 onLongPress: () {
+                  contentBox(context);
                   showDialog(
                     context: context,
                     builder: (context) {
                       return Dialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-                        elevation: 16,
-                        child: Container(
-                          child: ListView(
-                            shrinkWrap: true,
-                            children: <Widget>[
-                              SizedBox(height: 20),
-                              Center(child: Text('PNR : <PNR DETAILS>')),
-                              SizedBox(height: 5),
-                              Center(child: Text('From : : <StationName>')),
-                              SizedBox(height: 5),
-                              Center(child: Text('To : <Station Name>')),
-                              SizedBox(height: 5),
-                              Center(child: Text('Age : <Umr>')),
-                              SizedBox(height: 5),
-                            ],
-                          ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
                         ),
+                        elevation: 0,
+                        backgroundColor: Colors.transparent,
+                        child: contentBox(context),
                       );
                     },
                   );

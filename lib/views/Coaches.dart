@@ -5,6 +5,7 @@ import 'package:tte_buddy/models/TrainModel.dart';
 import 'package:tte_buddy/sidebar/SideBar.dart';
 import 'package:tte_buddy/utils/AppColor.dart';
 import 'package:tte_buddy/utils/LoadingScreen.dart';
+import 'package:tte_buddy/views/TrainRouteUI.dart';
 
 import 'SeatUI.dart';
 
@@ -77,6 +78,19 @@ class _CoachesState extends State<Coaches>{
                   fontWeight: FontWeight.w700,
                   fontFamily: 'Roboto',
                 ),
+              ),
+              SizedBox(width: 30,),
+              ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(AppColor.primarySwatchColor),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                            side: BorderSide(color: AppColor.primarySwatchColor, width: 2.0)))),
+                child: Icon(Icons.add_location_alt_outlined),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => TrainRouteUI()));
+                },
               ),
             ],
           ),
