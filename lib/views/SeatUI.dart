@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_responsive_screen/flutter_responsive_screen.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:tte_buddy/models/CoachModel.dart';
 import 'package:tte_buddy/models/SeatModel.dart';
 import 'package:tte_buddy/sidebar/SideBar.dart';
 import 'package:tte_buddy/utils/AppColor.dart';
 import 'package:tte_buddy/utils/Constants.dart';
 import 'package:tte_buddy/utils/LoadingScreen.dart';
+import 'package:qrscan/qrscan.dart' as scanner;
 
 class SeatUI extends StatefulWidget {
   final CoachModel coachModel;
@@ -22,6 +25,22 @@ class _SeatUIState extends State<SeatUI> {
   List<SeatModel> seatList = new List<SeatModel>();
   Function hp;
   Function wp;
+  String result = "Hello World...!";
+  Future _qrScanner() async{
+    var cameraStatus = await Permission.camera.status;
+    if(cameraStatus.isGranted)
+        {
+          String cameraScanResult = await scanner.scan();
+          print(cameraScanResult);
+        }
+      else{
+        var isGrant = await Permission.camera.request();
+        if(isGrant.isGranted){
+          String cameraScanResult = await scanner.scan();
+          print(cameraScanResult);
+        }
+      }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -188,10 +207,14 @@ class _SeatUIState extends State<SeatUI> {
   Widget createOneSeat(SeatModel model){
     return GestureDetector(
       onTap: () {
+        _qrScanner();
         // print("Length"+widget.seatList.length.toString());
         // print(widget.seatList[index].toString())
+
+        //print("Seat Id"+model.PNR);
+      },
+      onLongPress: (){
         fetchSeatDetails(model);
-        print("Seat Id"+model.PNR);
       },
       child: Container(
         height: 40,

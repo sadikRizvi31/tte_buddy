@@ -3,11 +3,13 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:tte_buddy/TrainOptions.dart';
 import 'package:tte_buddy/models/TrainModel.dart';
 import 'package:tte_buddy/utils/AppColor.dart';
 import 'package:tte_buddy/utils/LoadingScreen.dart';
 import 'package:tte_buddy/views/TrainRoute.dart';
+import 'package:qrscan/qrscan.dart' as scanner;
 
 import '../sidebar/SideBar.dart';
 import 'Coaches.dart';
@@ -26,6 +28,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.initState();
     tabController = TabController(vsync: this,length: 3);
     scrollTabController = TabController(vsync: this,length: 4);
+  }
+
+  Future _qrScanner() async{
+    //String cameraScanResult = await scanner.scan();
+    var cameraStatus = await Permission.camera.status;
+    if(cameraStatus.isGranted)
+    {
+      String cameraScanResult = await scanner.scan();
+      print(cameraScanResult);
+    }
+    else{
+      var isGrant = await Permission.camera.request();
+      if(isGrant.isGranted){
+        String cameraScanResult = await scanner.scan();
+        print(cameraScanResult);
+      }
+    }
   }
 
   @override
@@ -95,6 +114,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   fontSize: 30.0,
                   color: Colors.white,
                 ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 350,top: 8),
+              child: IconButton(icon: Icon(Icons.qr_code_scanner_sharp,color: Colors.black),
+                onPressed: () {
+                  _qrScanner();
+                },
               ),
             ),
             Padding(
