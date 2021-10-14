@@ -122,7 +122,7 @@ class _TrainRouteState extends State<TrainRoute> {
             ),
           ),
           Container(
-            height: 600,
+            height: 597.400,
             padding: EdgeInsets.only(left: 20,right: 20,top: 20),
             child: Row(
               children: [
