@@ -46,7 +46,7 @@ class _CoachesState extends State<Coaches>{
     }
   }
   _fetchCoachList(){
-    FirebaseFirestore.instance.collection('Train').document(widget.trainModel.train_no).collection("Compartment").get().then((QuerySnapshot querySnapshot) {
+    var then = FirebaseFirestore.instance.collection('Train').document(widget.trainModel.train_no).collection("Compartment").get().then((QuerySnapshot querySnapshot) {
       if(querySnapshot.docs.isNotEmpty) {
         querySnapshot.docs.forEach((doc) {
           setState(() {
